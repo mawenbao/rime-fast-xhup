@@ -219,7 +219,7 @@ emoji:                              # Emoji转换
   opencc_config: emoji.json
   inherit_comment: false
   comment_format:
-    - xform/^(.*)$/[$1]/
+    - xform/^(.*)$/($1)/
 
 # 简体转繁体
 tradition:                          # 简繁转换
@@ -228,7 +228,7 @@ tradition:                          # 简繁转换
   opencc_config: s2t.json       # s2t.json | s2hk.json | s2tw.json | s2twp.json
   option_name: traditionalize
   comment_format:
-    - xform/^(.*)$/[$1]/
+    - xform/^(.*)$/($1)/
 
 # 部件拆字反查
 radical_lookup:
