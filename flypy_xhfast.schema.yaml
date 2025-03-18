@@ -218,6 +218,8 @@ emoji:                              # Emoji转换
   option_name: emoji
   opencc_config: emoji.json
   inherit_comment: false
+  comment_format:
+    - xform/^(.*)$/[$1]/
 
 # 简体转繁体
 tradition:                          # 简繁转换
@@ -225,6 +227,8 @@ tradition:                          # 简繁转换
   tags: [abc]                   # 限制在对应 tag, 不对其他如反查的内容做简繁转换
   opencc_config: s2t.json       # s2t.json | s2hk.json | s2tw.json | s2twp.json
   option_name: traditionalize
+  comment_format:
+    - xform/^(.*)$/[$1]/
 
 # 部件拆字反查
 radical_lookup:
@@ -314,7 +318,7 @@ key_binder:
     - {when: composing, accept: Control+e, send: End}
     - {when: composing, accept: Control+m, send: Return}
     - {when: composing, accept: Control+k, send: Shift+Delete}
-    - {when: always, accept: "Shift+space", toggle: ascii_mode}
+    #- {when: always, accept: "Shift+space", toggle: ascii_mode}
     - {when: always, accept: "Control+comma", toggle: ascii_punct}
     - {when: always, accept: "Control+period", toggle: full_shape}
 
