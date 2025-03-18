@@ -8,13 +8,13 @@ patch:
   # 候选菜单
   menu/+:
     # 注释掉下行以恢复常规候选标签序号
-    alternative_select_labels: [ ①, ②, ③, ④, ⑤, ⑥, ⑦, ⑧, ⑨, ⓪ ]
+    # alternative_select_labels: [ ①, ②, ③, ④, ⑤, ⑥, ⑦, ⑧, ⑨, ⓪ ]
     # alternative_select_keys: 1234567890   # 候选项选中快捷键
-    page_size: 7                            # 自定义候选项个数
+    page_size: 9                            # 自定义候选项个数
 
   # 候选菜单布局样式
   style/+:
-    font_point: 18                    # 候选字大小
+    font_point: 15                    # 候选字大小
     line_spacing: 5                   # 行间距大小
     show_paging: false                # 是否显示分页符号
     inline_preedit: false             # 编码位是否嵌入候选框
@@ -43,13 +43,13 @@ patch:
   'engine/processors/@next': predictor
   'engine/translators/@before 0': predict_translator
   # 注释下行, 以取消中英混合的候选词条里自动添加的空格
-  'engine/filters/@before last': lua_filter@*word_append_space*filter
+  # 'engine/filters/@before last': lua_filter@*word_append_space*filter
   # 注释下行, 以取消中英混合输出上屏时自动添加的前导空格
   # 'engine/processors/@after 1': lua_processor@*word_append_space*processor
 
   key_binder/+:
     import_preset: default            # 从 default.yaml 继承通用的
-    # search: "`"                     # 辅码引导符
+    #search: "`"                      # 辅码引导符
     char_mode_suffix: "|"             # 单字优先触发后缀(四码词组->四码单字)
     char_mode: "Control+s"            # 单字模式
     pin_cand: "Control+t"             # 候选词置顶
@@ -57,12 +57,12 @@ patch:
     drop_cand: "Control+d"            # 强制删词, 无视输入的编码
     hide_cand: "Control+x"            # 匹配当前输入码后隐藏指定的候选字词
     reduce_fq_cand: "Control+j"       # 匹配当前输入码后降频指定的候选字词
-    switch_comment: "Control+n"       # 切换注释(小鹤形码 / 带调拼音 / 无)
-    commit_comment: "Control+p"       # 注释上屏
+    switch_comment: "Control+y"       # 切换注释(小鹤形码 / 带调拼音 / 无)
+    commit_comment: "Control+shift+p" # 注释上屏
     switch_english: "Control+g"       # 切换到英文输入方案
     expand_abbr_py: "Control+0"       # 展开超级简拼(开启时生效)
     remove_user_word: "Control+r"     # 用户词典里的字词调频为负
-    easydict_translate: "Control+y"   # 调用 Easydict 翻译高亮字词
+    # easydict_translate: "Control+y"   # 调用 Easydict 翻译高亮字词
     # select_first_character: "minus" # `-` 以词定字(第一个字)
     # select_last_character:  "equal" # `=` 以词定字(最后一个字)
     select_first_character: "bracketleft"   # `[` 以词定字(首字)
@@ -72,19 +72,27 @@ patch:
     enclosed_cand_chars_c: "Shift+Control+9"   # 上屏（高亮字词）
     enclosed_cand_chars_d: "Shift+Control+0"   # 上屏〔高亮字词〕
     bindings/+:
-      - {when: has_menu,  accept: Tab, send: Right}
-      - {when: composing, accept: Tab, send: Right}
+      #- {when: has_menu,  accept: Tab, send: Right}
+      #- {when: composing, accept: Tab, send: Right}
+      - {when: composing,  accept: semicolon,  send: '`'}
       - {when: composing, accept: grave, send: "`"}          # `键 逐字追加辅码
-      - {when: has_menu,  accept: semicolon,  send: 2}       # 分号用于第2候选
-      - {when: has_menu,  accept: apostrophe, send: 3}       # 单引号用于第3候选
+      #- {when: has_menu,  accept: semicolon,  send: 2}      # 分号用于第2候选
+      - {when: has_menu,  accept: apostrophe, send: 2}       # 单引号用于第3候选
       - {when: paging,    accept: comma,  send: Page_Up}     # 逗号, 返回上一页
       - {when: has_menu,  accept: period, send: Page_Down}   # 句号. 下一页
       # - {when: paging,    accept: minus,  send: Page_Up}   # 减号- 返回上一页
       # - {when: has_menu,  accept: equal, send: Page_Down}  # 等号= 下一页
       # - {when: has_menu,  accept: Tab, send: Control+Right}
       # - {when: composing, accept: Tab, send: Control+Right}
-      - {when: composing, accept: Shift+Tab, send: Control+Left}
-      - {when: composing, accept: Control+i, send: Control+Left}
+      - {when: composing, accept: Control+p, send: Up}
+      - {when: composing, accept: Control+n, send: Down}
+      - {when: composing, accept: Control+b, send: Left}
+      - {when: composing, accept: Control+f, send: Right}
+      - {when: composing, accept: Control+a, send: Home}
+      - {when: composing, accept: Control+e, send: End}
+      - {when: composing, accept: Control+k, send: Shift+Delete}
+      - {when: composing, accept: Control+h, send: BackSpace}
+      - {when: composing, accept: Control+i, send: Control+Left} 
       - {when: composing, accept: Control+o, send: Control+Right}
       - {when: composing, accept: Control+w, send: Control+BackSpace}
       - {when: always,  accept: Control+Shift+g, select: easy_en}
@@ -114,10 +122,11 @@ patch:
     symbols/+:
     full_shape/+:
     half_shape/+:
-      # '"': {pair: ['‘', '’']}
-      # "'": {pair: ['“', '”']}
-      # ";": {commit: "；"}                     # 恢复默认分号, 取消注释
-      ";": [";", "；"]                          # 添加注释, 以恢复默认分号
+      "'": "'"
+      '"': '"'
+      ";": ";"
+      "(": "("
+      ")": ")"
       '\': ['､', '、', '\', '＼', '\r', '\n', '\t']
       "@":
         - "@"

@@ -48,7 +48,7 @@ ascii_composer:
   good_old_caps_lock: true  # true | false
   switch_key:               # commit_code | commit_text | inline_ascii | clear | noop
     Shift_R: inline_ascii
-    Shift_L: noop
+    Shift_L: commit_code
     Control_L: noop
     Control_R: noop
     Caps_Lock: clear        # commit_code | commit_text | clear
@@ -75,8 +75,8 @@ punctuator:
     "?": {commit: ？}
     ";": {commit: ；}
     ":": {commit: ：}
-    "'": {pair: ["‘", "’"]}
-    '"': {pair: ["“", "”"]}
+    #"'": {pair: ["‘", "’"]}
+    #'"': {pair: ["“", "”"]}
     '\': [、, ＼]
     "|": [·, ｜, "§", "¦"]
     "`": ｀
@@ -108,8 +108,8 @@ punctuator:
     "?": "？"
     ";": "；"
     ":": ":"
-    "'": {pair: ["‘", "’"]}
-    '"': {pair: ["“", "”"]}
+    #"'": {pair: ["‘", "’"]}
+    #'"': {pair: ["“", "”"]}
     '\': "､"
     "|": [·, ｜, "§", "¦"]
     "`": "`"

@@ -1,21 +1,14 @@
-# default.custom.yaml
-# save it to:
-#   ~/.config/ibus/rime  (linux)
-#   ~/Library/Rime       (macos)
-#   %APPDATA%\Rime       (windows)
----
-
+customization:
+  distribution_code_name: Weasel
+  distribution_version: 0.16.3
+  generator: "Rime::SwitcherSettings"
+  modified_time: "Tue Mar 18 09:41:08 2025"
+  rime_version: 1.11.2
 patch:
   schema_list:
-    - schema: flypy_xhfast
-    - schema: flyhe_fast
-    - schema: easy_en
+    - {schema: flypy_xhfast}
   switcher:
-    save_options:
-      - char_mode
-      - ascii_punct
-      - traditionalize
-    hotkeys:
-      - Alt+grave
-    caption: 「方案选单」
+    caption: "「方案选单」"
     fold_options: false
+    hotkeys: [F4]
+    save_options: [char_mode, ascii_punct, traditionalize]

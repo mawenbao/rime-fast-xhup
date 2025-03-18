@@ -1,6 +1,8 @@
-# Weasel settings
-# encoding: utf-8
-
----
+customization:
+  distribution_code_name: Weasel
+  distribution_version: 0.16.3
+  generator: "Weasel::UIStyleSettings"
+  modified_time: "Mon Mar 17 20:08:16 2025"
+  rime_version: 1.11.2
 patch:
-  "style/color_scheme": mint_dark_blue
+  "style/color_scheme": nord
